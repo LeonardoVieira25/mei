@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalador NFS-e</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bookmarklet-btn {
+            width: 220px; /* Tamanho fixo para não quebrar o layout */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: grab;
+        }
+        .bookmarklet-btn:active { cursor: grabbing; }
+        .bookmarklet-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(110%);
+        }
+        .dot-grid {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 dot-grid">
+
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl shadow-blue-100/50 border border-slate-100 p-8">
+        <div class="flex justify-center mb-6">
+            <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">v2.0 Pronta</span>
+        </div>
+
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-black text-slate-800 mb-2">Instalar Dashboard</h1>
+            <p class="text-slate-500 text-sm">Arraste o botão azul para sua barra de favoritos lá no topo do navegador.</p>
+        </div>
+
+        <div class="flex justify-center py-8 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 mb-8 relative">
+            <!-- Carrega o script main.js do GitHub Pages -->
+            <a id="bookmarklet" class="bookmarklet-btn flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-200 overflow-hidden whitespace-nowrap" 
+               href="#" title="Arraste para a barra de favoritos">
+                <span class="text-xl">📊</span>
+                <span>Gerar Dashboard</span>
+            </a>
+        </div>
+
+        <script>
+            // Monta o bookmarklet dinamicamente usando a URL atual do GitHub Pages
+            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '');
+            const scriptUrl = baseUrl + '/main.js';
+            const bookmarkletCode = "javascript:(function(){var s=document.createElement('script');s.src='" + scriptUrl + "?v=" + Date.now() + "';document.body.appendChild(s)})();";
+            document.getElementById('bookmarklet').href = bookmarkletCode;
+        </script>
+
+        <div class="space-y-4">
+            <div class="flex items-start gap-3">
+                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">1</div>
+                <p class="text-xs text-slate-600">Ative a barra de favoritos (Ctrl+Shift+B).</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">2</div>
+                <p class="text-xs text-slate-600 font-semibold text-slate-900">Arraste o botão acima para ela.</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">3</div>
+                <p class="text-xs text-slate-600">Use no portal da NFS-e logado.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
