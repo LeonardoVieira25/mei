@@ -28,16 +28,59 @@
 
         <div class="text-center mb-8">
             <h1 class="text-2xl font-black text-slate-800 mb-2">Instalar Dashboard</h1>
-            <p class="text-slate-500 text-sm">Arraste o botão azul para sua barra de favoritos lá no topo do navegador.</p>
+            <p class="text-slate-500 text-sm">Escolha o método de acordo com seu dispositivo:</p>
         </div>
 
-        <div class="flex justify-center py-8 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 mb-8 relative">
-            <!-- Carrega o script main.js do GitHub Pages -->
-            <a id="bookmarklet" class="bookmarklet-btn flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-200 overflow-hidden whitespace-nowrap" 
-               href="#" title="Arraste para a barra de favoritos">
-                <span class="text-xl">📊</span>
-                <span>Gerar Dashboard</span>
-            </a>
+        <!-- Desktop Mode -->
+        <div class="mb-10">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2">Computador</h2>
+            <div class="flex justify-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 mb-4 relative">
+                <a id="bookmarklet" class="bookmarklet-btn flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-200 overflow-hidden whitespace-nowrap" 
+                   href="#" title="Arraste para a barra de favoritos">
+                    <span class="text-xl">📊</span>
+                    <span>Gerar Dashboard</span>
+                </a>
+            </div>
+            <p class="text-xs text-slate-500 text-center">Arraste o botão acima para sua barra de favoritos.</p>
+        </div>
+
+        <!-- Mobile Mode -->
+        <div class="mb-8">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2">Celular (Android/iOS)</h2>
+            <div class="space-y-3">
+                <button id="copyBtn" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 text-white font-bold rounded-xl shadow-lg hover:bg-slate-700 transition-colors">
+                    <span id="copyIcon">📋</span>
+                    <span id="copyText">Copiar Código do Favorito</span>
+                </button>
+                <button id="openNfseBtn" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-500 transition-colors">
+                    <span>🔗</span>
+                    <span>Abrir NFS-e</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100 mb-8">
+            <h3 class="text-xs font-bold text-blue-800 uppercase mb-2">Como usar no celular:</h3>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-xs font-bold text-blue-800 mb-1">Android (Chrome)</p>
+                    <ol class="text-xs text-blue-700 space-y-2 list-decimal ml-4">
+                        <li>Toque em <b>Copiar Código do Favorito</b>.</li>
+                        <li>Abra o menu ⋮ e toque em <b>Adicionar aos favoritos</b>.</li>
+                        <li>Edite o favorito criado: mude o nome para "Dashboard" e <b>cole o código</b> no campo de URL.</li>
+                        <li>No site da NFS-e, digite "Dashboard" na barra de endereços para executar.</li>
+                    </ol>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-blue-800 mb-1">iPhone (Safari)</p>
+                    <ol class="text-xs text-blue-700 space-y-2 list-decimal ml-4">
+                        <li>Toque em <b>Copiar Código do Favorito</b>.</li>
+                        <li>Toque em <b>Compartilhar</b> e depois em <b>Adicionar Favorito</b>.</li>
+                        <li>Abra <b>Favoritos</b>, toque em <b>Editar</b> e escolha o favorito criado.</li>
+                        <li>Troque o nome para "Dashboard" e <b>cole o código</b> no campo do endereço.</li>
+                    </ol>
+                </div>
+            </div>
         </div>
 
         <script>
@@ -46,23 +89,33 @@
             const scriptUrl = baseUrl + '/main.js';
             const nfseUrl = 'https://www.nfse.gov.br/EmissorNacional/Notas/Emitidas';
             const bookmarkletCode = "javascript:(function(){if(window.location.href.indexOf('nfse.gov.br/EmissorNacional')!==-1){var s=document.createElement('script');s.src='" + scriptUrl + "?v=" + Date.now() + "';document.body.appendChild(s)}else{window.open('" + nfseUrl + "','_blank')}})();";
+            
+            // Atribui ao link de desktop
             document.getElementById('bookmarklet').href = bookmarkletCode;
-        </script>
 
-        <div class="space-y-4">
-            <div class="flex items-start gap-3">
-                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">1</div>
-                <p class="text-xs text-slate-600">Ative a barra de favoritos (Ctrl+Shift+B).</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">2</div>
-                <p class="text-xs text-slate-600 font-semibold text-slate-900">Arraste o botão acima para ela.</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <div class="bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5">3</div>
-                <p class="text-xs text-slate-600">Use no portal da NFS-e logado.</p>
-            </div>
-        </div>
+            // Lógica de cópia para mobile
+            const copyBtn = document.getElementById('copyBtn');
+            const copyText = document.getElementById('copyText');
+            const copyIcon = document.getElementById('copyIcon');
+
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(bookmarkletCode).then(() => {
+                    copyText.innerText = 'Copiado!';
+                    copyIcon.innerText = '✅';
+                    copyBtn.classList.replace('bg-slate-800', 'bg-green-600');
+                    
+                    setTimeout(() => {
+                        copyText.innerText = 'Copiar Código do Favorito';
+                        copyIcon.innerText = '📋';
+                        copyBtn.classList.replace('bg-green-600', 'bg-slate-800');
+                    }, 2000);
+                });
+            };
+
+            document.getElementById('openNfseBtn').onclick = () => {
+                window.open(nfseUrl, '_blank');
+            };
+        </script>
     </div>
 
 </body>
