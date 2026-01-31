@@ -25,9 +25,6 @@
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 dot-grid">
 
     <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl shadow-blue-100/50 border border-slate-100 p-8">
-        <div class="flex justify-center mb-6">
-            <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">v2.0 Pronta</span>
-        </div>
 
         <div class="text-center mb-8">
             <h1 class="text-2xl font-black text-slate-800 mb-2">Instalar Dashboard</h1>
@@ -47,7 +44,8 @@
             // Monta o bookmarklet dinamicamente usando a URL atual do GitHub Pages
             const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '');
             const scriptUrl = baseUrl + '/main.js';
-            const bookmarkletCode = "javascript:(function(){var s=document.createElement('script');s.src='" + scriptUrl + "?v=" + Date.now() + "';document.body.appendChild(s)})();";
+            const nfseUrl = 'https://www.nfse.gov.br/EmissorNacional/Notas/Emitidas';
+            const bookmarkletCode = "javascript:(function(){if(window.location.href.indexOf('nfse.gov.br/EmissorNacional')!==-1){var s=document.createElement('script');s.src='" + scriptUrl + "?v=" + Date.now() + "';document.body.appendChild(s)}else{window.open('" + nfseUrl + "','_blank')}})();";
             document.getElementById('bookmarklet').href = bookmarkletCode;
         </script>
 
